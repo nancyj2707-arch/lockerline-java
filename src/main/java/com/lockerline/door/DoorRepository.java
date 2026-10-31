@@ -54,6 +54,10 @@ public class DoorRepository {
     public void hold(long doorId, long parcelId) {
         jdbc.sql("UPDATE doors SET current_parcel_id = ? WHERE id = ?").params(parcelId, doorId).update();
     }
+        /** Empties a door. */
+    public void free(long doorId) {
+        jdbc.sql("UPDATE doors SET current_parcel_id = NULL WHERE id = ?").param(doorId).update();
+    }
 
     public void insert(long towerId, String no, SizeClass sizeClass) {
         jdbc.sql("INSERT INTO doors (tower_id, no, size_class) VALUES (?, ?, ?)")
